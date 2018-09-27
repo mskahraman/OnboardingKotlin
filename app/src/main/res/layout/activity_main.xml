@@ -65,8 +65,10 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittext_radius"
                     android:editable="false"
-                    android:onClick="@{()->handlerGettingInfo.clickOrigin()}"
-                    android:text="@{flight.origin}"
+                    android:hint="Şehir veya Havalimanı"
+                    android:onClick="onClickOrigin"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"
                     android:textSize="22sp" />
 
 
@@ -90,7 +92,8 @@
                         android:layout_height="24dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="260dp"
-                        android:background="@drawable/change2" />
+                        android:background="@drawable/change2"
+                        android:onClick="onClickChangeDirection" />
                 </LinearLayout>
 
                 <EditText
@@ -102,8 +105,10 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/edittext_radius"
                     android:editable="false"
-                    android:hint="Şehir veya Havalimanı..."
-                    android:text="@{flight.destination}"
+                    android:hint="Şehir veya Havalimanı"
+                    android:onClick="onClickDestination"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"
                     android:textSize="22sp" />
 
 
@@ -146,10 +151,12 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="@drawable/edittext_radius"
+                        android:editable="false"
+                        android:hint="Gidiş Tarihi Seçiniz"
+                        android:onClick="onClickSelectDate"
                         android:textColor="#000000"
-                        android:onClick="@{()->handlerGettingInfo.selectDate()}"
+                        android:textColorHint="@android:color/black"
                         android:textSize="18sp"
-                        android:text="@{flight.departureDate}"
                         android:textStyle="normal"></EditText>
 
                     <EditText
@@ -200,8 +207,10 @@
 
                         android:id="@+id/spinnerAdult"
                         android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1">
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="#fff"
+                        android:popupBackground="@android:color/white">
 
                     </Spinner>
                 </LinearLayout>
@@ -226,8 +235,10 @@
                     <Spinner
                         android:id="@+id/spinnerChild"
                         android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1">
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="#fff"
+                        android:popupBackground="@android:color/white">
 
                     </Spinner>
                 </LinearLayout>
@@ -252,8 +263,10 @@
                     <Spinner
                         android:id="@+id/spinnerBabe"
                         android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1">
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="#fff"
+                        android:popupBackground="@android:color/white">
 
                     </Spinner>
                 </LinearLayout>
@@ -340,7 +353,7 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/edittext_radius"
                     android:gravity="center"
-                    android:onClick='@{()->handlerGettingInfo.getInfo("fddf1")}'
+                    android:onClick="onClickGetFlights"
                     android:text="Uçuş Ara"
                     android:textColor="#fff"
                     android:textSize="26sp"
@@ -351,7 +364,10 @@
                     livebutton:pressedHeight="2dp"
                     livebutton:shadowColor="#b16262" />
 
-
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickGetFlights1"/>
 
             </LinearLayout>
 

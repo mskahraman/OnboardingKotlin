@@ -14,40 +14,38 @@ class ManagerAll {
     fun getAirports(apikey: String): Call<SearchAirportResponse> {
 
         restApiClient = RestApiClient(BaseUrl.URL_AIRPORTS)
-        var x: Call<SearchAirportResponse> = restApiClient!!.getRestApi().getAirports(apikey)
-        return x
+        return restApiClient?.getRestApi()!!.getAirports(apikey)
     }
 
     fun getInfoTickets(type: String, clientid: String, clientsecret: String): Call<TokenResponse> {
 
         restApiClient = RestApiClient(BaseUrl.URL)
-        var x: Call<TokenResponse> = restApiClient!!.getRestApi().getInfo(type, clientid, clientsecret)
-        return x
+        return restApiClient?.getRestApi()!!.getInfo(type, clientid, clientsecret)
+
     }
 
-    fun FlightsDetailsResponse(header: String, origin: String, destination: String, departureDate: String, travelClass: String, nonStop: String)
+    fun FlightsDetailsResponse(header: String, origin: String, destination: String, departureDate: String, travelClass: String, nonStop: Boolean)
             : Call<FlightsDetailsResponse> {
 
         restApiClient = RestApiClient(BaseUrl.URL)
-        var x: Call<FlightsDetailsResponse> = restApiClient!!.getRestApi().getInfoFlight(header, origin, destination,
+        return  restApiClient?.getRestApi()!!.getInfoFlight(header, origin, destination,
                 departureDate, travelClass, nonStop)
-        return x
+
     }
 
     fun getInfoHotels(header: String, latitude: Double, longitude: Double)
             : Call<HotelResponse> {
 
         restApiClient = RestApiClient(BaseUrl.URL)
-        var x: Call<HotelResponse> = restApiClient!!.getRestApi().getInfoHotels(header, latitude, longitude)
-        return x
+        return restApiClient?.getRestApi()!!.getInfoHotels(header, latitude, longitude)
+
     }
 
     fun getIataCodesForHotels(headerOfAPCAuth: String, headerAPCAuthSecret: String, iataCode: String)
             : Call<IataCodesResponse> {
 
         restApiClient = RestApiClient(BaseUrl.URL_AIRCODES)
-        var x: Call<IataCodesResponse> = restApiClient!!.getRestApi().getInformationsToSendHotelApi(headerOfAPCAuth, headerAPCAuthSecret, iataCode)
-        return x
+        return  restApiClient?.getRestApi()!!.getInformationsToSendHotelApi(headerOfAPCAuth, headerAPCAuthSecret, iataCode)
     }
 
 

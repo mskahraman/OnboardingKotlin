@@ -7,9 +7,9 @@ class AirportModel {
 
     @Expose
     @SerializedName("code")
-    private var code: String?=null
+     var code: String?=null
 
     @Expose
     @SerializedName("name")
-    private var name:String? =null
+     var name:String? =null
 }

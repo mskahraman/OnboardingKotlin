@@ -11,14 +11,14 @@ class RestApiClient(restApiServiceUrl: String) {
 
     init {
 
-        val builder: OkHttpClient.Builder = OkHttpClient.Builder()
+        val builder = OkHttpClient.Builder()
                 .readTimeout(50, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(50, TimeUnit.SECONDS);
+                .connectTimeout(50, TimeUnit.SECONDS)
 
-        val okHttpClient: OkHttpClient = builder.build()
+        val okHttpClient = builder.build()
 
-        val retrofit: Retrofit = Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
                 .baseUrl(restApiServiceUrl)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
