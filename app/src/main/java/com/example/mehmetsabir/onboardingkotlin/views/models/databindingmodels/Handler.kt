@@ -1,7 +1,5 @@
 package com.example.mehmetsabir.onboardingkotlin.views.models.databindingmodels
 
-import android.view.View
-
 
 class Handler() {
 
@@ -10,7 +8,7 @@ class Handler() {
     }
 
 
-    fun onClickOrigin(view:View) {
+    fun onClickOrigin() {
 
 
     }
@@ -28,7 +26,7 @@ class Handler() {
     interface OnGetFlightsListener {
 
         fun getDateForSelect()
-        fun getOrigin(view: View)
+        fun getOrigin()
         fun getDestination()
         fun getFlights()
 

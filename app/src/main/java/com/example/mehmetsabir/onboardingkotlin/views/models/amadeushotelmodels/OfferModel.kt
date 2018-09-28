@@ -8,7 +8,6 @@ class OfferModel {
     @SerializedName("room")
     @Expose
     var room: RoomModel? =null
-
     @SerializedName("price")
     @Expose
     var price:  PriceModel? = null

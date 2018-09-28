@@ -12,31 +12,31 @@ interface RestApi {
 
     @FormUrlEncoded
     @POST("security/oauth2/token")
-    fun getInfo(@Field("grant_type") grant_type : String, @Field("client_id") client_id : String ,
-                @Field("client_secret") client_secret : String): Call<TokenResponse>
+    fun getInfo(@Field("grant_type") grant_type: String, @Field("client_id") client_id: String,
+                @Field("client_secret") client_secret: String): Call<TokenResponse>
 
 
     @GET("shopping/flight-offers")
-    fun getInfoFlight(@Header("Authorization") header :String,
-                      @Query("origin") origin : String,
-                      @Query("destination") destination : String,
-                      @Query("departureDate") departureDate : String,
-                      @Query("travelClass") travelClass : String,
-                      @Query("nonStop") nonStop : Boolean) :  Call<FlightsDetailsResponse>
+    fun getInfoFlight(@Header("Authorization") header: String,
+                      @Query("origin") origin: String,
+                      @Query("destination") destination: String,
+                      @Query("departureDate") departureDate: String,
+                      @Query("travelClass") travelClass: String,
+                      @Query("nonStop") nonStop: Boolean): Call<FlightsDetailsResponse>
 
     @GET("shopping/hotel-offers")
-    fun getInfoHotels(@Header("Authorization")  header :String,
-                      @Query("latitude")  latitude : Double,
-                      @Query("longitude")  longitude : Double) : Call<HotelResponse>
+    fun getInfoHotel(@Header("Authorization") header: String,
+                     @Query("latitude") latitude: Double,
+                     @Query("longitude") longitude: Double): Call<HotelResponse>
 
 
     @GET("airports")
-    fun getAirports(@Query("api_key")  api_key : String) : Call<SearchAirportResponse>
+    fun getAirports(@Query("api_key") api_key: String): Call<SearchAirportResponse>
 
 
     @GET("single")
-    fun getInformationsToSendHotelApi(@Header("APC-Auth")  headerOfAPCAuth : String,
-                                      @Header("APC-Auth-Secret")  headerAPCAuthSecret : String,
-                                      @Query("iata")  iataCode : String) :  Call<IataCodesResponse>
+    fun getInformationsToSendHotelApi(@Header("APC-Auth") headerOfAPCAuth: String,
+                                      @Header("APC-Auth-Secret") headerAPCAuthSecret: String,
+                                      @Query("iata") iataCode: String): Call<IataCodesResponse>
 
 }

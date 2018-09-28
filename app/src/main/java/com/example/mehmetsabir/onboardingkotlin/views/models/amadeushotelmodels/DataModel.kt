@@ -10,10 +10,10 @@ class DataModel {
     var type : String?=null
     @SerializedName("hotel")
     @Expose
-    var hotel : String?=null
+    var hotel : HotelModel?=null
     @SerializedName("available")
     @Expose
-    var available : String?=null
+    var available : Boolean?=null
     @SerializedName("offers")
     @Expose
     var offers: List<OfferModel>?  = null;

@@ -24,7 +24,7 @@ import java.util.ArrayList
 class FlightListActivity : AppCompatActivity() {
 
     private var listView: ListView? = null
-    private val flightsDetailsResponse =  ArrayList<DataAirportModel>()
+    private val flightsDetailsResponse = ArrayList<DataAirportModel>()
     private var adp: FlightListAdapter? = null
     private var header: String? = null
     private var origin: String? = null
@@ -39,8 +39,7 @@ class FlightListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_flight_list)
-
-        listView = findViewById(R.id.listviewFlightList) as ListView
+        listView = findViewById<ListView>(R.id.listviewFlightList)
         getAccessTokenWithResponse()
     }
 
@@ -57,23 +56,21 @@ class FlightListActivity : AppCompatActivity() {
                 .enqueue(object : Callback<TokenResponse> {
                     override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
 
-                        if (response.isSuccessful()) {
+                        if (response.isSuccessful) {
 
                             header = "Bearer " + response.body()!!.accessToken.toString()
-                            Log.e("servis1:", "token")
                             getFlightsResponse()
                         }
-
                     }
 
                     override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
-                        Log.e("hata", t.localizedMessage)
+                        Log.e("servis hatası", t.localizedMessage)
                     }
                 })
 
     }
 
-    fun getFlightsResponse() {
+    private fun getFlightsResponse() {
 
         bundle = intent.extras
         origin = bundle?.getString("origin")
@@ -83,18 +80,19 @@ class FlightListActivity : AppCompatActivity() {
         passengersCount = bundle?.getInt("passengersCount")
         nonStopOrNot = bundle?.getBoolean("nonStopOrNot")
 
-       ManagerAll.instance.FlightsDetailsResponse(header!!, origin!!, destination!!, departureDate!!,
+        ManagerAll.instance.FlightsDetailsResponse(header!!, origin!!, destination!!, departureDate!!,
                 travelClass!!, nonStopOrNot!!).enqueue(object : Callback<FlightsDetailsResponse> {
 
             override fun onResponse(call: Call<FlightsDetailsResponse>, response: Response<FlightsDetailsResponse>) {
 
-                if (response.isSuccessful()) {
+                if (response.isSuccessful) {
+
+                    flightsDetailsResponse?.clear()
 
                     flightsDetailsResponse.addAll(response.body()?.data!!)
                     adp = FlightListAdapter(this@FlightListActivity, flightsDetailsResponse, this@FlightListActivity, passengersCount!!)
                     listView?.adapter = adp
                     adp?.notifyDataSetChanged()
-                    Log.e("servis2:", "liste")
                 }
 
                 progressDialog?.cancel()

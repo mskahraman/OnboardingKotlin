@@ -353,7 +353,6 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/edittext_radius"
                     android:gravity="center"
-                    android:onClick="onClickGetFlights"
                     android:text="Uçuş Ara"
                     android:textColor="#fff"
                     android:textSize="26sp"
@@ -363,11 +362,6 @@
                     livebutton:normalHeight="6dp"
                     livebutton:pressedHeight="2dp"
                     livebutton:shadowColor="#b16262" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClickGetFlights1"/>
 
             </LinearLayout>
 

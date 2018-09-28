@@ -1,21 +1,12 @@
 package com.example.mehmetsabir.onboardingkotlin.views.views.activities
 
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.content.Intent
-import android.databinding.DataBindingUtil
-import android.databinding.adapters.AdapterViewBindingAdapter
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.text.Editable
-import android.util.Log
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.*
 import com.example.mehmetsabir.onboardingkotlin.R
-import com.example.mehmetsabir.onboardingkotlin.databinding.ActivityMainBinding
-import com.example.mehmetsabir.onboardingkotlin.views.models.databindingmodels.Handler
-import java.text.DateFormat
 import java.util.*
 
 class MainActivity() : AppCompatActivity() {
@@ -31,7 +22,7 @@ class MainActivity() : AppCompatActivity() {
     private var spinnerAdult: Spinner? = null
     private var spinnerChild: Spinner? = null
     private var spinnerBabe: Spinner? = null
-    private var countOfPassengers: Int = 2
+    private var countOfPassengers: Int? = null
     private var imgChangeDirection: ImageView? = null
     private var cbNonStop: CheckBox? = null
     private var rbtnGrpClassOfTravel: RadioGroup? = null
@@ -49,71 +40,66 @@ class MainActivity() : AppCompatActivity() {
         //binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         // binding!!.handlerGettingInfo = Handler()
         init()
-
+        getFlightsList()
 
 
     }
 
     fun init() {
-        edtTxtDepartureDate = findViewById(R.id.edtTxtDepartureDate) as EditText
-        edtTxtDateComingBack = findViewById(R.id.edtTxtDateOfComingBack) as EditText
-        edtTxtOrigin = findViewById(R.id.edtTxtOrigin) as EditText
-        edtTxtDestination = findViewById(R.id.edtTxtDestination) as EditText
+        edtTxtDepartureDate = findViewById<EditText>(R.id.edtTxtDepartureDate)
+        edtTxtDateComingBack = findViewById<EditText>(R.id.edtTxtDateOfComingBack)
+        edtTxtOrigin = findViewById<EditText>(R.id.edtTxtOrigin)
+        edtTxtDestination = findViewById<EditText>(R.id.edtTxtDestination)
         imgChangeDirection = findViewById(R.id.changeDirection) as ImageView
-        cbNonStop = findViewById(R.id.cbNonStop) as CheckBox
-        spinnerAdult = findViewById(R.id.spinnerAdult) as Spinner
-        spinnerChild = findViewById(R.id.spinnerChild) as Spinner
-        spinnerBabe = findViewById(R.id.spinnerBabe) as Spinner
-        rbtnGrpClassOfTravel = findViewById(R.id.rbGroupClass) as RadioGroup
-        btnClickSearchOfFlights = findViewById(R.id.btnClickSearchOfFlights) as Button
+        cbNonStop = findViewById<CheckBox>(R.id.cbNonStop)
+        spinnerAdult = findViewById<Spinner>(R.id.spinnerAdult)
+        spinnerChild = findViewById<Spinner>(R.id.spinnerChild)
+        spinnerBabe = findViewById<Spinner>(R.id.spinnerBabe)
+        rbtnGrpClassOfTravel = findViewById<RadioGroup>(R.id.rbGroupClass)
+        btnClickSearchOfFlights = findViewById<Button>(R.id.btnClickSearchOfFlights)
 
         setAdapterToSpinner()
-
+        getItemCountFromSpinner(spinnerAdult)
 
     }
 
-
-    //+
     private fun itemCbClicked(v: View): Boolean {
 
-        return if ((v as CheckBox).isChecked) {
+        if ((v as CheckBox).isChecked) {
             return true
         } else {
             return false
         }
     }
 
-    //+
-    fun setAdapterToSpinner() {
+    private fun setAdapterToSpinner() {
 
         arrayAdapter = ArrayAdapter(this, R.layout.spinner_layout_item, spinnerArrayOfAges)
-        spinnerAdult?.setAdapter(arrayAdapter)
-        spinnerChild?.setAdapter(arrayAdapter)
-        spinnerBabe?.setAdapter(arrayAdapter)
+        spinnerAdult?.adapter = arrayAdapter
+        spinnerChild?.adapter = arrayAdapter
+        spinnerBabe?.adapter = arrayAdapter
 
 
     }
 
-
-    private fun getItemCountFromSpinner(spinner: Spinner?): Int {
+    private fun getItemCountFromSpinner(spinner: Spinner?): Int? {
 
         spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
-                countOfPassengers = spinner?.selectedItem as Int
+                countOfPassengers = spinnerAdult?.selectedItem.toString().toInt()
+
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {}
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
 
         }
 
         return countOfPassengers
     }
 
-    //+
-
-
-    //+
     private fun getClassfromGroup(id: Int): String {
 
         when (id) {
@@ -124,7 +110,6 @@ class MainActivity() : AppCompatActivity() {
         }
     }
 
-    //+
     fun onClickSelectDate(view: View) {
 
         mCurrentTime = Calendar.getInstance()
@@ -136,8 +121,7 @@ class MainActivity() : AppCompatActivity() {
 
         { view, year, monthOfYear, dayOfMonth ->
 
-            //edtTxtDepartureDate?.text = "$year -  ${(monthOfYear + 1) as Int}  -  $dayOfMonth"
-            edtTxtDepartureDate?.setText(year.toString() + "-" + (monthOfYear + 1) as Int + "-" + dayOfMonth )
+            edtTxtDepartureDate?.setText(year.toString() + "-" + (monthOfYear + 1) as Int + "-" + dayOfMonth)
         }, year, month, day)
 
         datePicker?.setTitle("Tarih Seçiniz")
@@ -146,7 +130,6 @@ class MainActivity() : AppCompatActivity() {
         datePicker?.show()
     }
 
-    //+
     fun onClickChangeDirection(view: View) {
 
         var tempOfName = edtTxtOrigin?.text
@@ -172,11 +155,11 @@ class MainActivity() : AppCompatActivity() {
 
                 if (tagName == edtTxtDestination?.tag) {
                     edtTxtDestination?.setText(airportsName);
-                    airportCodeForIntentDestination= airportsCode.toString()
+                    airportCodeForIntentDestination = airportsCode.toString()
 
                 } else {
                     edtTxtOrigin?.setText(airportsName)
-                   airportCodeForIntentOrigin = airportsCode.toString()
+                    airportCodeForIntentOrigin = airportsCode.toString()
 
                 }
             }
@@ -199,31 +182,31 @@ class MainActivity() : AppCompatActivity() {
 
     }
 
-    fun goToSearchActivity(comingTag : String?) {
+    private fun goToSearchActivity(comingTag: String?) {
         val intent: Intent = Intent(this@MainActivity, SearchActivity::class.java)
         intent.putExtra("tag", comingTag)
         startActivityForResult(intent, 100)
 
     }
 
+    private fun getFlightsList() {
 
-    fun onClickGetFlights1(view: View) {
+        btnClickSearchOfFlights?.setOnClickListener(View.OnClickListener {
 
-        val Id = rbtnGrpClassOfTravel?.checkedRadioButtonId
+            val Id = rbtnGrpClassOfTravel?.checkedRadioButtonId
 
-      //  Toast.makeText(this@MainActivity, " " + itemCbClicked(cbNonStop!!), Toast.LENGTH_LONG).show()
-
-      val intent = Intent(this@MainActivity, FlightListActivity::class.java)
-        intent.putExtra("origin", airportCodeForIntentOrigin)
-        intent.putExtra("destination", airportCodeForIntentDestination)
-        intent.putExtra("departureDate", edtTxtDepartureDate?.text.toString())
-        intent.putExtra("travelClass", getClassfromGroup(Id!!))
-        intent.putExtra("nonStopOrNot", itemCbClicked(cbNonStop!!))
-        intent.putExtra("passengersCount", getItemCountFromSpinner(spinnerAdult))
-        startActivity(intent)
-
+            val intent = Intent(this@MainActivity, FlightListActivity::class.java)
+            intent.putExtra("origin", airportCodeForIntentOrigin)
+            intent.putExtra("destination", airportCodeForIntentDestination)
+            intent.putExtra("departureDate", edtTxtDepartureDate?.text.toString())
+            intent.putExtra("travelClass", getClassfromGroup(Id!!))
+            intent.putExtra("nonStopOrNot", itemCbClicked(cbNonStop!!))
+            intent.putExtra("passengersCount", getItemCountFromSpinner(spinnerAdult))
+            startActivity(intent)
+        })
 
     }
 
-
 }
+
+

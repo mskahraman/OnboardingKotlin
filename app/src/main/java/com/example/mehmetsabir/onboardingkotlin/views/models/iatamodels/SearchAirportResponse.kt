@@ -6,5 +6,5 @@ class SearchAirportResponse {
 
     @SerializedName("response")
 
-    var airports : List<AirportModel>? = null
+    var airports: List<AirportModel>? = null
 }

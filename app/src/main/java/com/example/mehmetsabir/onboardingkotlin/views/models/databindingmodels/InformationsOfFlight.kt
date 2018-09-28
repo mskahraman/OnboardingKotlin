@@ -7,7 +7,7 @@ class InformationsOfFlight {
     var departureDate : String? = null
     var classOfTravel : String? = null
     var passengersCount : Int = 0
-    var nonStopOrNot : Boolean? = null
+   // var nonStopOrNot : Boolean? = null
 
 
 }

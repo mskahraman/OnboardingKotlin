@@ -7,11 +7,11 @@ class FlightSegmentModel {
 
     @SerializedName("departure")
     @Expose
-    var departure : DepartureModel? = null
+    var departure: DepartureModel? = null
 
     @SerializedName("arrival")
     @Expose
-    var arrival : ArrivalModel? = null
+    var arrival: ArrivalModel? = null
 
     @SerializedName("number")
     @Expose

@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 class MetaModel {
     @SerializedName("defaults")
     @Expose
-    var defaultModel : DefaultModel? = null
+    var defaultModel: DefaultModel? = null
 }

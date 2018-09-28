@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 class IataCodesResponse {
 
     @SerializedName("airport")
-     var listIataCodes: IataCodesofAirport? = null
-
+    var listIataCodes: IataCodesofAirport? = null
 
 }

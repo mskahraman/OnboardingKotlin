@@ -38,7 +38,7 @@ class HotelsListAdapter(listOfHotel : ArrayList<DataModel> , context : Context )
         priceOfHotels = view.findViewById(R.id.priceOfHotels) as TextView
         currentPriceOfHotels = view.findViewById(R.id.currentPriceOfHotels) as TextView
 
-        nameOfHotels?.text = listOfHotel[position].hotel.toString()
+        nameOfHotels?.text = listOfHotel[position].hotel?.name
         typeOfHotels?.text = listOfHotel[position].offers?.get(0)?.room?.type.toString()
         descriptionfHotels?.text = listOfHotel[position].offers?.get(0)?.room?.description?.text.toString()
         priceOfHotels?.text = listOfHotel[position].offers?.get(0)?.price?.total.toString()
@@ -52,7 +52,7 @@ class HotelsListAdapter(listOfHotel : ArrayList<DataModel> , context : Context )
     }
 
     override fun getItemId(position: Int): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return 0
     }
 
     override fun getCount(): Int {

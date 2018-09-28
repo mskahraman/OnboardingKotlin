@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 class FlightsDetailsResponse {
 
-        @SerializedName("data")
-        @Expose
-        var data: List<DataAirportModel>? = null
-        @SerializedName("meta")
-        @Expose
-        var metaModel: MetaModel? = null
+    @SerializedName("data")
+    @Expose
+    var data: List<DataAirportModel>? = null
+    @SerializedName("meta")
+    @Expose
+    var metaModel: MetaModel? = null
 
 }

@@ -28,7 +28,7 @@ class ManagerAll {
             : Call<FlightsDetailsResponse> {
 
         restApiClient = RestApiClient(BaseUrl.URL)
-        return  restApiClient?.getRestApi()!!.getInfoFlight(header, origin, destination,
+        return restApiClient?.getRestApi()!!.getInfoFlight(header, origin, destination,
                 departureDate, travelClass, nonStop)
 
     }
@@ -37,7 +37,7 @@ class ManagerAll {
             : Call<HotelResponse> {
 
         restApiClient = RestApiClient(BaseUrl.URL)
-        return restApiClient?.getRestApi()!!.getInfoHotels(header, latitude, longitude)
+        return restApiClient?.getRestApi()!!.getInfoHotel(header, latitude, longitude)
 
     }
 
@@ -45,7 +45,7 @@ class ManagerAll {
             : Call<IataCodesResponse> {
 
         restApiClient = RestApiClient(BaseUrl.URL_AIRCODES)
-        return  restApiClient?.getRestApi()!!.getInformationsToSendHotelApi(headerOfAPCAuth, headerAPCAuthSecret, iataCode)
+        return restApiClient?.getRestApi()!!.getInformationsToSendHotelApi(headerOfAPCAuth, headerAPCAuthSecret, iataCode)
     }
 
 

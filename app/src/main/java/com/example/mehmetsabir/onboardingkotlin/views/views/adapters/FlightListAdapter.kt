@@ -19,17 +19,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FlightListAdapter(context: Context,list : ArrayList<DataAirportModel> ,activity: Activity,countOfPassengers : Int)
-    : BaseAdapter(){
+class FlightListAdapter(context: Context, list: ArrayList<DataAirportModel>, activity: Activity, countOfPassengers: Int)
+    : BaseAdapter() {
 
-    private var list= ArrayList<DataAirportModel>()
+    private var list = ArrayList<DataAirportModel>()
     private var context: Context? = null
     private var txtFlightOrigin: TextView? = null
-    private var txtFlightDestination:TextView? = null
-    private var txtFlightDateofGoing:TextView? = null
-    private var txtFlightClass:TextView? = null
-    private var txtFlightOfPrice:TextView? = null
-    private var txtFlightNonStop:TextView? = null
+    private var txtFlightDestination: TextView? = null
+    private var txtFlightDateofGoing: TextView? = null
+    private var txtFlightClass: TextView? = null
+    private var txtFlightOfPrice: TextView? = null
+    private var txtFlightNonStop: TextView? = null
     private var btnChooseFlight: Button? = null
     private var activity: Activity? = null
     private var countOfPassengers: Int? = null
@@ -37,14 +37,14 @@ class FlightListAdapter(context: Context,list : ArrayList<DataAirportModel> ,act
     private var headerAPCAuthSecret = "4d7cc5efb9ea6a0"
 
     init {
-        this.context=context
+        this.context = context
         this.list = list
         this.activity = activity
         this.countOfPassengers = countOfPassengers
     }
 
 
-    override fun getView(position: Int, convertView : View?, parent: ViewGroup): View? {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         val view: View?
 
         view = LayoutInflater.from(context).inflate(R.layout.flight_list_adapter, parent, false)
@@ -78,7 +78,7 @@ class FlightListAdapter(context: Context,list : ArrayList<DataAirportModel> ,act
         return view
     }
 
-    fun getInformationsOfLocations(){
+    fun getInformationsOfLocations() {
 
         ManagerAll.instance.getIataCodesForHotels(headerOfAPCAuth,
                 headerAPCAuthSecret, txtFlightDestination?.text.toString()).enqueue(object : Callback<IataCodesResponse> {
@@ -105,10 +105,10 @@ class FlightListAdapter(context: Context,list : ArrayList<DataAirportModel> ,act
     }
 
     override fun getItemId(position: Int): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       return 0
     }
 
     override fun getCount(): Int {
-       return list.size
+        return list.size
     }
 }

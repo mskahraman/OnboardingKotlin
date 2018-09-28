@@ -34,21 +34,19 @@ class SearchActivity : AppCompatActivity(), SearchAirportAdapter.OnAirportSelect
     private var progressDialog: ProgressDialog? = null
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        recylerView = findViewById(R.id.searchrecyler) as RecyclerView
-        edtTxtSearchOfAirportName = findViewById(R.id.editTxtSearchandFilter) as EditText
+        recylerView = findViewById<RecyclerView>(R.id.searchrecyler)
+        edtTxtSearchOfAirportName = findViewById<EditText>(R.id.editTxtSearchandFilter)
 
         getModel()
         searchAirports()
 
-}
+    }
 
-    fun getModel(){
+    private  fun getModel() {
 
         progressDialog = ProgressDialog(this@SearchActivity)
         progressDialog?.setTitle("Bilgi Ekranı")
@@ -60,18 +58,20 @@ class SearchActivity : AppCompatActivity(), SearchAirportAdapter.OnAirportSelect
             override fun onResponse(call: Call<SearchAirportResponse>, response: Response<SearchAirportResponse>) {
                 if (response.isSuccessful) {
 
+                    mairports?.clear()
                     mairports.addAll(response.body()?.airports!!)
                     layoutManager = LinearLayoutManager(this@SearchActivity)
-                    recylerView?.layoutManager=layoutManager
+                    recylerView?.layoutManager = layoutManager
                     bundle = intent.extras
                     filterAdapter = SearchAirportAdapter(applicationContext, mairports, bundle!!.get("tag").toString(),
                             this@SearchActivity)
-                    recylerView?.adapter= filterAdapter
+                    recylerView?.adapter = filterAdapter
                 }
 
                 progressDialog?.cancel()
 
             }
+
             override fun onFailure(call: Call<SearchAirportResponse>, t: Throwable) {
                 Log.e("hata", t.localizedMessage)
                 if (t.localizedMessage.contains("timeout")) {
@@ -91,7 +91,6 @@ class SearchActivity : AppCompatActivity(), SearchAirportAdapter.OnAirportSelect
         finish()
     }
 
-
     private fun getFilter(search: String) {
 
         filterList.clear()
@@ -101,9 +100,9 @@ class SearchActivity : AppCompatActivity(), SearchAirportAdapter.OnAirportSelect
             if (airportModel.name?.toLowerCase()!!.contains(search.toLowerCase())) {
 
                 filterList.add(airportModel)
-                filterAdapter = SearchAirportAdapter(this@SearchActivity, filterList,bundle!!.get("tag").toString(),
+                filterAdapter = SearchAirportAdapter(this@SearchActivity, filterList, bundle!!.get("tag").toString(),
                         this@SearchActivity)
-                recylerView?.adapter= filterAdapter
+                recylerView?.adapter = filterAdapter
                 filterAdapter?.notifyDataSetChanged()
             }
         }

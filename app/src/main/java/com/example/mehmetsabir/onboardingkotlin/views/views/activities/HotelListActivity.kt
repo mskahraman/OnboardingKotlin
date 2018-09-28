@@ -1,8 +1,8 @@
 package com.example.mehmetsabir.onboardingkotlin.views.views.activities
 
 import android.app.ProgressDialog
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.ListView
 import android.widget.Toast
 import com.example.mehmetsabir.onboardingkotlin.R
@@ -15,7 +15,7 @@ import com.example.mehmetsabir.onboardingkotlin.views.views.adapters.HotelsListA
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
+import java.util.*
 
 class HotelListActivity : AppCompatActivity() {
 
@@ -23,7 +23,7 @@ class HotelListActivity : AppCompatActivity() {
     private var header: String? = null
     private var bundle: Bundle? = null
     private var latitudeValue: Double? = null
-    private var longitudeValue:Double? = null
+    private var longitudeValue: Double? = null
     private var hotelAdapter: HotelsListAdapter? = null
     private val listOfHotels = ArrayList<DataModel>()
     private var lvHotelList: ListView? = null
@@ -32,6 +32,7 @@ class HotelListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hotel_list)
+        lvHotelList = findViewById<ListView>(R.id.listviewHotelsList)
         getHotels()
     }
 
@@ -45,30 +46,14 @@ class HotelListActivity : AppCompatActivity() {
 
         ManagerAll.instance.getInfoTickets("client_credentials", BaseUrl.CLIENT_ID, BaseUrl.CLIENT_SECRET).enqueue(object : Callback<TokenResponse> {
             override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful) {
 
                     bundle = intent.extras
                     latitudeValue = bundle?.getDouble("latitude")
                     longitudeValue = bundle?.getDouble("longitude")
 
                     header = "Bearer " + response.body()?.accessToken.toString()
-                    ManagerAll.instance.getInfoHotels(header!!, latitudeValue!!, longitudeValue!!).enqueue(object : Callback<HotelResponse> {
-                        override fun onResponse(call: Call<HotelResponse>, response: Response<HotelResponse>) {
-                            if (response.isSuccessful()) {
-
-                                listOfHotels.addAll(response.body()?.data!!)
-                                hotelAdapter = HotelsListAdapter(listOfHotels, this@HotelListActivity)
-                                lvHotelList?.setAdapter(hotelAdapter)
-                                hotelAdapter?.notifyDataSetChanged()
-                            }
-
-                            progressDialog?.cancel()
-                        }
-
-                        override fun onFailure(call: Call<HotelResponse>, t: Throwable) {
-
-                        }
-                    })
+                    getHotelList()
 
                 } else {
                     Toast.makeText(this@HotelListActivity, "hata", Toast.LENGTH_SHORT).show()
@@ -77,6 +62,28 @@ class HotelListActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+
+            }
+        })
+    }
+
+    private fun getHotelList() {
+
+
+        ManagerAll.instance.getInfoHotels(header!!, latitudeValue!!, longitudeValue!!).enqueue(object : Callback<HotelResponse> {
+            override fun onResponse(call: Call<HotelResponse>, response: Response<HotelResponse>) {
+                if (response.isSuccessful) {
+
+                    listOfHotels.addAll(response.body()?.data!!)
+                    hotelAdapter = HotelsListAdapter(listOfHotels, this@HotelListActivity)
+                    lvHotelList?.adapter = hotelAdapter
+                    hotelAdapter?.notifyDataSetChanged()
+                }
+
+                progressDialog?.cancel()
+            }
+
+            override fun onFailure(call: Call<HotelResponse>, t: Throwable) {
 
             }
         })
